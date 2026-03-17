@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Home is Where You Are</title>
+
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+
+<style>
+:root{
+  --bg:#071A3A;
+  --text:#F3F6FF;
+  --muted:rgba(243,246,255,0.75);
+  --card:rgba(255,255,255,0.06);
+  --border:rgba(255,255,255,0.12);
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* TITLE */
+
+header{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:70px 18px;
+  position:relative;
+  overflow:hidden;
+}
+
+.title-bg{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  pointer-events:none;
+  z-index:0;
+  opacity:0.22;
+  transform:scale(1.05);
+}
+
+.title-bg img{
+  width:min(900px,92vw);
+  border-radius:18px;
+}
+
+.title-content{
+  position:relative;
+  z-index:1;
+}
+
+h1{
+  margin:0;
+  font-size:clamp(30px,5vw,54px);
+}
+
+.subtitle{
+  margin-top:14px;
+  opacity:0.85;
+  font-size:14px;
+  line-height:1.6;
+  max-width:560px;
+}
+
+.hint{
+  margin-top:28px;
+  opacity:0.7;
+  font-size:13px;
+}
+
+main{
+  width:min(980px,100%);
+  margin:0 auto;
+  padding:40px 18px 140px;
+}
+
+.panel{
+  border:1px solid var(--border);
+  background:var(--card);
+  border-radius:16px;
+  padding:22px;
+  margin:0 auto 130px;
+}
+
+.panel-title{
+  font-size:14px;
+  opacity:0.75;
+  margin:0 0 12px 2px;
+}
+
+.frame{
+  position:relative;
+  width:100%;
+  max-width:720px;
+  margin:0 auto;
+}
+
+img{
+  width:100%;
+  border-radius:12px;
+  display:block;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+
+.caption{
+  margin:14px auto 0;
+  max-width:720px;
+  font-size:18px;
+  text-align:center;
+  line-height:1.45;
+}
+
+.caption small{
+  display:block;
+  margin-top:8px;
+  font-size:13px;
+  color:var(--muted);
+}
+
+.overlay-img{
+  position:absolute;
+  inset:0;
+  cursor:pointer;
+}
+
+.hidden{
+  opacity:0;
+  pointer-events:none;
+}
+
+.panel.hidden{
+  display:none;
+}
+
+.soft-pop{
+  transition:transform 220ms ease;
+}
+
+.soft-pop:active{
+  transform:scale(0.99);
+}
+
+.memory-stage{
+  position:relative;
+  width:100%;
+  max-width:720px;
+  margin:0 auto;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.10);
+}
+
+.memory-stage .city-base{
+  width:100%;
+}
+
+.memory-stage .desert-memory{
+  position:absolute;
+  inset:0;
+  width:100%;
+  opacity:0.92;
+  transition:opacity 8.5s ease;
+}
+
+.memory-stage.reveal .desert-memory{
+  opacity:0;
+}
+
+/* BOX HOTSPOT */
+
+#boxClick{
+  position:absolute;
+  width:200px;
+  height:200px;
+  left:60px;
+  top:130px;
+  cursor:pointer;
+  z-index:10;
+}
+
+/* CAMEL HOTSPOT */
+
+#camelClick{
+  position:absolute;
+  width:260px;
+  height:260px;
+  left:380px;
+  top:220px;
+  cursor:pointer;
+  z-index:10;
+}
+
+.fadeSwap{
+  animation:fadeSwap 0.8s ease;
+}
+
+@keyframes fadeSwap{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="title-bg">
+    <img src="panel6.PNG" alt="Title background image">
+  </div>
+
+  <div class="title-content">
+    <h1 data-aos="fade-down">Home is Where You Are</h1>
+    <div class="subtitle" data-aos="fade-up" data-aos-delay="150">
+      A small comic about leaving, arriving, and realizing the place can change… but the feeling takes time.
+    </div>
+    <div class="hint" data-aos="fade-up" data-aos-delay="350">
+      Scroll (and click)
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- PANEL 1 -->
+  <section class="panel" data-aos="zoom-in" data-aos-duration="900">
+    <p class="panel-title">Panel 1</p>
+
+    <div class="frame">
+      <img src="panel 1.png" alt="Panel 1">
+
+      <img id="boxClosed"
+      class="overlay-img soft-pop"
+      src="panel 1 - closed box png.png"
+      alt="Closed box">
+
+      <img id="boxOpened"
+      class="overlay-img soft-pop hidden"
+      src="panel 1 - opened box png.png"
+      alt="Opened box">
+    </div>
+
+    <div class="caption">
+      “Today we leave.”
+      <small>(click the box)</small>
+    </div>
+  </section>
+
+  <!-- PANEL 2 -->
+  <section class="panel" data-aos="fade-up" data-aos-duration="900">
+    <p class="panel-title">Panel 2</p>
+
+    <div id="memoryStage" class="memory-stage">
+      <img class="city-base" src="panel 2 - city.png" alt="City">
+      <img class="desert-memory" src="panel 2 - desert.png" alt="Desert memory">
+    </div>
+
+    <div class="caption">
+      “The road feels longer when you’re not ready.”
+    </div>
+  </section>
+
+  <!-- PANEL 3 -->
+  <section class="panel" data-aos="flip-up" data-aos-duration="900">
+    <p class="panel-title">Panel 3</p>
+
+    <div class="frame">
+      <img id="lightsClosed"
+      class="soft-pop"
+      src="panel 3 - closed lights.jpg"
+      alt="Lights off"
+      style="cursor:pointer;">
+
+      <img id="lightsOpened"
+      class="overlay-img soft-pop hidden"
+      src="panel 3 - opened lights.jpg"
+      alt="Lights on">
+    </div>
+
+    <div class="caption">
+      “Everything is here… but home.”
+      <small>(click the lights)</small>
+    </div>
+  </section>
+
+  <!-- PANEL 4 -->
+  <section class="panel" id="panel4"
+  data-aos="fade-up"
+  data-aos-duration="900">
+
+    <p class="panel-title">Panel 4</p>
+
+    <div class="frame">
+      <img src="Panel4.PNG" alt="Panel 4">
+      <div id="boxClick"></div>
+    </div>
+
+    <div class="caption">
+      “I miss what I used to understand.”
+      <small>(Click the box.)</small>
+    </div>
+  </section>
+
+  <!-- PANEL 5 -->
+  <section class="panel hidden" id="panel5"
+  data-aos="zoom-in"
+  data-aos-duration="900">
+
+    <p class="panel-title">Panel 5</p>
+
+    <div class="frame">
+      <img src="panel5.PNG" alt="Panel 5" id="panel5Image">
+      <div id="camelClick"></div>
+    </div>
+
+    <div class="caption">
+      “Maybe home can follow you.”
+      <small>(Click the camel.)</small>
+    </div>
+  </section>
+
+  <!-- PANEL 6 -->
+  <section class="panel hidden" id="panel6"
+  data-aos="flip-up"
+  data-aos-duration="900">
+
+    <p class="panel-title">Panel 6</p>
+
+    <div class="frame">
+      <img src="panel6.PNG" alt="Panel 6">
+    </div>
+
+    <div class="caption">
+      “Home isn’t a place. It’s who stays with you.”
+    </div>
+  </section>
+
+</main>
+
+<audio id="lightSound" src="light-switch.m4a" preload="auto"></audio>
+<audio id="finalMusic" src="music.mp3"></audio>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+AOS.init({
+  once:true,
+  offset:120
+});
+
+document.addEventListener("DOMContentLoaded",function(){
+
+  /* BOX TOGGLE - PANEL 1 */
+  const boxClosed=document.getElementById("boxClosed");
+  const boxOpened=document.getElementById("boxOpened");
+
+  function toggleBox(){
+    if(!boxClosed.classList.contains("hidden")){
+      boxClosed.classList.add("hidden");
+      boxOpened.classList.remove("hidden");
+    }else{
+      boxOpened.classList.add("hidden");
+      boxClosed.classList.remove("hidden");
+    }
+  }
+
+  boxClosed.onclick=toggleBox;
+  boxOpened.onclick=toggleBox;
+
+  /* LIGHT TOGGLE + SOUND - PANEL 3 */
+  const lightsClosed=document.getElementById("lightsClosed");
+  const lightsOpened=document.getElementById("lightsOpened");
+  const lightSound=document.getElementById("lightSound");
+
+  lightSound.volume=0.8;
+
+  function playLightSound(){
+    lightSound.pause();
+    lightSound.currentTime=0;
+    lightSound.play().catch(()=>{});
+  }
+
+  function toggleLights(){
+    playLightSound();
+
+    if(!lightsClosed.classList.contains("hidden")){
+      lightsClosed.classList.add("hidden");
+      lightsOpened.classList.remove("hidden");
+    }else{
+      lightsOpened.classList.add("hidden");
+      lightsClosed.classList.remove("hidden");
+    }
+  }
+
+  lightsClosed.onclick=toggleLights;
+  lightsOpened.onclick=toggleLights;
+
+  /* PANEL 2 MEMORY EFFECT */
+  const memoryStage=document.getElementById("memoryStage");
+
+  const memoryObserver=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        memoryStage.classList.add("reveal");
+      }else{
+        memoryStage.classList.remove("reveal");
+      }
+    });
+  },{threshold:0.55});
+
+  memoryObserver.observe(memoryStage);
+
+  /* PANEL 4 */
+  const boxClick=document.getElementById("boxClick");
+  const panel5=document.getElementById("panel5");
+
+  boxClick.addEventListener("click",function(){
+    panel5.classList.remove("hidden");
+
+    panel5.scrollIntoView({
+      behavior:"smooth"
+    });
+  });
+
+  /* PANEL 5 */
+  const camelClick=document.getElementById("camelClick");
+  const panel5Image=document.getElementById("panel5Image");
+  const panel6=document.getElementById("panel6");
+  const music=document.getElementById("finalMusic");
+
+  camelClick.addEventListener("click",function(){
+    panel5Image.src="Camel-hearts.PNG";
+    panel5Image.classList.add("fadeSwap");
+
+    setTimeout(function(){
+      panel6.classList.remove("hidden");
+
+      panel6.scrollIntoView({
+        behavior:"smooth"
+      });
+
+      music.play().catch(()=>{});
+    },900);
+  });
+
+});
+</script>
+
+</body>
+</html>
